@@ -60,6 +60,15 @@
         <p>Current user: <strong>admin</strong></p>
         <p>Current date: <span id="current-date"></span></p>
       </div>
+
+      <div class="content-card">
+        <h3>Sound Board</h3>
+        <p>Click buttons to play sounds</p>
+        <div id="sound-buttons" class="sound-buttons-container">
+          <!-- Sound buttons will be added here dynamically -->
+          <div class="loading">Loading sounds...</div>
+        </div>
+      </div>
     </div>
   </div>
   
@@ -67,6 +76,46 @@
     // Display current date
     const date = new Date();
     document.getElementById('current-date').textContent = date.toLocaleDateString();
+    
+    // Sound player functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Create audio element for playing sounds
+      const audioPlayer = new Audio();
+      
+      // Load available sounds
+      fetch('/sounds')
+        .then(response => response.json())
+        .then(data => {
+          const soundButtonsContainer = document.getElementById('sound-buttons');
+          soundButtonsContainer.innerHTML = ''; // Clear loading message
+          
+          if (data.sounds && data.sounds.length > 0) {
+            data.sounds.forEach(sound => {
+              // Create button for each sound
+              const button = document.createElement('button');
+              // Remove file extension for display
+              const displayName = sound.replace(/\.[^/.]+$/, "");
+              button.textContent = displayName;
+              button.className = 'sound-button';
+              
+              // Play sound on click
+              button.addEventListener('click', () => {
+                audioPlayer.src = `/sounds/${sound}`;
+                audioPlayer.play();
+              });
+              
+              soundButtonsContainer.appendChild(button);
+            });
+          } else {
+            soundButtonsContainer.innerHTML = '<p>No sounds available</p>';
+          }
+        })
+        .catch(error => {
+          console.error('Error loading sounds:', error);
+          document.getElementById('sound-buttons').innerHTML = 
+            '<p>Error loading sounds. Please try again later.</p>';
+        });
+    });
   </script>
 </body>
 </html>

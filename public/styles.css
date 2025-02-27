@@ -298,3 +298,72 @@ header a {
   background-color: var(--primary-light);
   transform: translateY(-2px);
 }
+
+/* Dashboard Styles - Fix for centering issue */
+.dashboard-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  width: 100%;
+}
+
+.dashboard {
+  background-color: var(--background);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 900px;
+  padding: 0;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+/* Make content cards have proper background/text contrast */
+.content-card {
+  margin: 0 30px 30px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  color: var(--text);
+}
+
+.content-card h3 {
+  color: var(--accent);
+  margin-bottom: 15px;
+}
+
+/* Sound Board Styles */
+.sound-buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.sound-button {
+  background-color: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.sound-button:hover {
+  background-color: var(--primary-light);
+  transform: translateY(-2px);
+}
+
+.sound-button:active {
+  transform: translateY(0);
+  background-color: var(--primary-dark);
+}
+
+.loading {
+  color: var(--text-light);
+  font-style: italic;
+}

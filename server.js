@@ -60,6 +60,23 @@ app.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
+app.get('/sounds', (req, res) => {
+  const soundsDir = path.join(__dirname, 'public', 'sounds');
+  const fs = require('fs');
+  
+  fs.readdir(soundsDir, (err, files) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to list sounds' });
+    }
+    
+    // Filter to only include audio files
+    const sounds = files.filter(file => 
+      file.endsWith('.mp3') || file.endsWith('.wav') || file.endsWith('.ogg'));
+    
+    res.json({ sounds });
+  });
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
