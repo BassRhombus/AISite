@@ -38,12 +38,15 @@ app.get('/', (req, res) => {
 
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
+  console.log(`Login attempt: ${username}`);
   
   if (username === ADMIN_USER && password === ADMIN_PASS) {
+    console.log('Login successful');
     req.session.authenticated = true;
     req.session.username = username;
     res.redirect('/dashboard');
   } else {
+    console.log('Login failed');
     res.redirect('/?error=invalid');
   }
 });
